@@ -23,4 +23,22 @@ describe('OpenTriviaClient', () => {
       name: 'Science & Nature',
     });
   });
+  describe('#queryString', () => {
+    it('should correctly build a queryString', () => {
+      const client = new OpenTriviaClient({ amount: '10' });
+      expect(client.queryString()).to.equal(
+        'https://opentdb.com/api.php?amount=10&type=multiple'
+      );
+    });
+    it('should correctly handle all properties', () => {
+      const client = new OpenTriviaClient({
+        amount: '10',
+        category: 'Science & Nature',
+        difficulty: 'easy',
+      });
+      expect(client.queryString()).to.equal(
+        'https://opentdb.com/api.php?amount=10&type=multiple&category=17&difficulty=easy'
+      );
+    });
+  });
 });

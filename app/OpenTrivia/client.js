@@ -13,12 +13,19 @@ class OpenTriviaClient {
     this.type = 'multiple'; // multiple choice
   }
 
-  // fetchQuestions = () => {
-  //   const query = this.baseUrl + `amount=${this.amount}`;
-  // };
+  fetchQuestions = () => {
+    axios.get(this.queryString());
+  };
+
+  queryString = () => {
+    let query = this.baseUrl + `amount=${this.amount}&type=${this.type}`;
+    if (this.category) query += '&category=' + this.category.id;
+    if (this.difficulty) query += '&difficulty=' + this.difficulty;
+    return query;
+  };
 
   // private
-  getCategoryInfo = function (categoryName) {
+  getCategoryInfo = (categoryName) => {
     return categories.find(function (c) {
       return c.name === categoryName;
     });

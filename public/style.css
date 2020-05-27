@@ -34,14 +34,25 @@ body {
   border: 1px solid black;
 }
 
-.label-max-width {
-  margin-top: 20px
-}
-
 .selector-max-width {
   background-color: white;
   font-size: 18px;
   padding: 8px;
-  margin: 5px 0px;
+  margin: 5px 0px 20px 0px;
   width: 100%;
+}
+
+.loading-container {
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.loading-text {
+  font-size:32px;
+}
+
+.loading-balls {
+  height: 40px;
+  width: auto;
 }

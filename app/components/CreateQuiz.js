@@ -1,16 +1,36 @@
 import React, { useContext, useState } from 'react';
 import QuizContext from '../context';
 import categories from '../OpenTrivia/categories.json';
+import { fetchQuestions } from '../OpenTrivia/client';
+import Loading from './Loading';
 
 const CreateQuiz = () => {
   const { dispatch } = useContext(QuizContext);
   const numberOfQuestions = useFormData(5);
   const category = useFormData('Any Category');
   const difficulty = useFormData('Any Difficulty');
+  const [loading, setLoading] = useState(false);
 
-  return (
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const formData = {
+      amount: numberOfQuestions.value,
+      category: category.value === 'Any Category' ? null : category.value,
+      difficulty:
+        difficulty.value === 'Any Difficulty' ? null : difficulty.value,
+    };
+    fetchQuestions(formData).then((questions) => {
+      setLoading(false);
+      dispatch({ type: 'FETCH_QUESTIONS', payload: questions });
+    });
+  };
+
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="card">
-      <form onSubmit={() => dispatch({ type: 'START_QUIZ' })}>
+      <form onSubmit={handleSubmit}>
         <label className="label-max-width" htmlFor="number_of_questions">
           <span>Number of Questions</span>
           <select
@@ -34,7 +54,7 @@ const CreateQuiz = () => {
         </label>
         <label className="label-max-width" htmlFor="category">
           <span>Difficulty</span>
-          <select id="category" className="selector-max-width" {...category}>
+          <select id="category" className="selector-max-width" {...difficulty}>
             <option>Any Difficulty</option>
             <option>easy</option>
             <option>medium</option>

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import QuizContext from '../context';
 
-const CreateQuiz = () => {
-  const { dispatch } = useContext(QuizContext);
+const Quiz = () => {
+  // const { dispatch } = useContext(QuizContext);
   return (
     <div className="card">
       <h1>You are taking the quiz</h1>
@@ -10,4 +10,4 @@ const CreateQuiz = () => {
   );
 };
 
-export default CreateQuiz;
+export default Quiz;

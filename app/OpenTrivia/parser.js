@@ -1,11 +1,22 @@
+import { decode } from 'html-encoder-decoder';
+
 export default function parseOpenTriviaQuestions(questions) {
-  questions = shuffle(questions);
-  return questions.map((question) => {
+  const decodedQuestions = shuffle(HTMLdecodeAllText(questions));
+  return decodedQuestions.map((question) => {
     question.allAnswers = shuffle([
       ...question.incorrect_answers,
       question.correct_answer,
     ]);
     return question;
+  });
+}
+
+function HTMLdecodeAllText(questions) {
+  return questions.map((q) => {
+    q.question = decode(q.question);
+    q.correct_answer = decode(q.correct_answer);
+    q.incorrect_answers = q.incorrect_answers.map((a) => decode(a));
+    return q;
   });
 }
 

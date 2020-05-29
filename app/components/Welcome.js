@@ -7,8 +7,8 @@ const Welcome = () => {
   return showForm ? (
     <CreateQuiz />
   ) : (
-    <div className="card">
-      <h1>Welcome to Trivia Boy</h1>
+    <div className="card welcome">
+      <h1>Welcome to Trivia👦Boy</h1>
       <p>press begin to get started</p>
       <button
         onClick={() => setShowForm(true)}

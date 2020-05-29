@@ -10,11 +10,55 @@ body {
   padding-top: 50px;
 }
 
+.bar {
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%;
+  padding: 20px 30px 3px 30px;
+  background-color: black;
+  color: white;
+}
+
+.bar > p {
+  padding: 10px;
+  max-width: 30%;
+  min-width: fit-content;
+  height: auto;
+  margin: 0px 10px;
+  display: inline-block;
+}
+
+#score {
+  width: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  float: right;
+}
+
 .card {
   padding: 30px;
   border-radius: 5px;
   box-shadow: 1px 1px 5px 1px grey;
   max-width: 80vw;
+  min-width: 320px
+}
+
+.card-content {
+  width: 80vw;
+  min-width: 320px;
+  padding: 0px 30px 30px 30px;
+}
+
+.question-card {
+  padding: 0;
+}
+
+.answers-list {
+  margin-bottom: 20px;
 }
 
 .btn-max-width {

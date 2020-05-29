@@ -3,6 +3,7 @@ import QuizContext from '../context';
 import categories from '../OpenTrivia/categories.json';
 import { fetchQuestions } from '../OpenTrivia/client';
 import Loading from './Loading';
+import parseOpenTriviaQuestions from '../OpenTrivia/parser';
 
 const CreateQuiz = () => {
   const { dispatch } = useContext(QuizContext);
@@ -10,6 +11,7 @@ const CreateQuiz = () => {
   const category = useFormData('Any Category');
   const difficulty = useFormData('Any Difficulty');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +24,16 @@ const CreateQuiz = () => {
     };
     fetchQuestions(formData).then((questions) => {
       setLoading(false);
-      dispatch({ type: 'FETCH_QUESTIONS', payload: questions });
+      if (questions.length) {
+        dispatch({
+          type: 'FETCH_QUESTIONS',
+          payload: parseOpenTriviaQuestions(questions),
+        });
+      } else {
+        setError(
+          "Sorry, we don't have enough of the questions you want in our database."
+        );
+      }
     });
   };
 
@@ -65,6 +76,15 @@ const CreateQuiz = () => {
           Quiz Me
         </button>
       </form>
+      {error && (
+        <>
+          <p className="error-msg">{error}</p>
+          <p className="error-msg">
+            Contribute questions to our database at{' '}
+            <a href="https://opentdb.com/">opentdb.com</a>
+          </p>
+        </>
+      )}
     </div>
   );
 };

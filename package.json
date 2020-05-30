@@ -4,6 +4,9 @@
   "description": "a trivia app built on opentdb API",
   "main": "app/index.js",
   "scripts": {
+    "deploy": "npm install && npm run start",
+    "build": "webpack",
+    "start": "NODE_ENV=production npm run build && node server",
     "dev": "NODE_ENV=development webpack -w & nodemon server",
     "test": "NODE_ENV=test mocha --require @babel/register specs/**/*.spec.js || true"
   },

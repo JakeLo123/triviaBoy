@@ -51,7 +51,7 @@ const CreateQuiz = () => {
             className="selector-max-width"
             {...numberOfQuestions}
           >
-            {[1, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+            {[3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
               <option key={i}>{i}</option>
             ))}
           </select>

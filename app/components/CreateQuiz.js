@@ -2,14 +2,16 @@ import React, { useContext, useState } from 'react';
 import QuizContext from '../context';
 import categories from '../OpenTrivia/categories.json';
 import { fetchQuestions } from '../OpenTrivia/client';
-import Loading from './Loading';
+import { Loading, Error } from './index';
 import parseOpenTriviaQuestions from '../OpenTrivia/parser';
 
 const CreateQuiz = () => {
   const { dispatch } = useContext(QuizContext);
+
   const numberOfQuestions = useFormData(5);
   const category = useFormData('Any Category');
   const difficulty = useFormData('Any Difficulty');
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -49,7 +51,7 @@ const CreateQuiz = () => {
             className="selector-max-width"
             {...numberOfQuestions}
           >
-            {[3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+            {[1, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
               <option key={i}>{i}</option>
             ))}
           </select>
@@ -76,15 +78,7 @@ const CreateQuiz = () => {
           Quiz Me
         </button>
       </form>
-      {error && (
-        <>
-          <p className="error-msg">{error}</p>
-          <p className="error-msg">
-            Contribute questions to our database at{' '}
-            <a href="https://opentdb.com/">opentdb.com</a>
-          </p>
-        </>
-      )}
+      <Error errorMsg={error} />
     </div>
   );
 };

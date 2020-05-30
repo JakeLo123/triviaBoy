@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import CreateQuiz from './CreateQuiz';
+import React, { useContext } from 'react';
+import QuizContext from '../context';
+import { CreateQuiz } from './index';
 
 const Welcome = () => {
-  const [showForm, setShowForm] = useState(false);
+  const { state, dispatch } = useContext(QuizContext);
 
-  return showForm ? (
+  return state.showForm ? (
     <CreateQuiz />
   ) : (
     <div className="card welcome">
       <h1>Welcome to Trivia👦Boy</h1>
       <p>press begin to get started</p>
       <button
-        onClick={() => setShowForm(true)}
+        onClick={() => dispatch({ type: 'SHOW_FORM' })}
         className="btn-max-width"
         type="button"
       >

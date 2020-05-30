@@ -1,16 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import QuizContext from '../context';
 
 const Results = () => {
-  const { state } = useContext(QuizContext);
+  const { state, dispatch } = useContext(QuizContext);
   const { userScore, questions } = state;
+  const message = 'Congratulations, you did okay 🎊';
+
+  const resetQuiz = (e) => {
+    e.preventDefault();
+    dispatch({ type: 'RESET' });
+  };
 
   return (
     <div className="card">
-      <h1>Congratulations, you did okay 🎊</h1>
+      <h1>{message}</h1>
       <p>
-        You scored {userScore}/{questions.length}
+        You answered {userScore} questions correctly out of {questions.length}.
       </p>
+      <button type="button" className="btn-max-width" onClick={resetQuiz}>
+        Play Again
+      </button>
     </div>
   );
 };

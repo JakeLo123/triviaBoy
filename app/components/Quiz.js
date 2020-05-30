@@ -1,15 +1,16 @@
 /* eslint-disable camelcase */
 import React, { useContext, useState, useRef } from 'react';
 import QuizContext from '../context';
-import Results from './Results';
-import QuestionMetabar from './QuestionMetabar';
+import { Results, QuestionMetabar } from './index';
 
 const Quiz = () => {
   const { state, dispatch } = useContext(QuizContext);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const quizIsOver = currentQuestionIndex === state.questions.length;
   const [userInput, setUserInput] = useState('');
   const answerRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+  const submitButtonRef = useRef(null);
+
+  const quizIsOver = currentQuestionIndex === state.questions.length;
 
   const { question, correct_answer, allAnswers, category, difficulty } =
     !quizIsOver && state.questions[currentQuestionIndex];
@@ -18,9 +19,11 @@ const Quiz = () => {
   const submitQuestion = (e) => {
     e.preventDefault();
     setTimeout(() => {
+      submitButtonRef.current.disabled = false;
       setCurrentQuestionIndex((prevState) => prevState + 1);
     }, 3000);
 
+    submitButtonRef.current.disabled = true;
     if (userInput === correct_answer) {
       dispatch({ type: 'INCREMENT_SCORE' });
     }
@@ -66,6 +69,7 @@ const Quiz = () => {
           onClick={submitQuestion}
           className="btn-max-width"
           type="button"
+          ref={submitButtonRef}
         >
           Submit
         </button>

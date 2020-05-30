@@ -7,8 +7,8 @@ import { Welcome, Quiz } from './components';
 const App = () => {
   const initialState = useContext(QuizContext);
   const [state, dispatch] = useReducer(quizReducer, initialState);
-  const started = state.questions;
 
+  const started = state.questions;
   return (
     <QuizContext.Provider value={{ state, dispatch }}>
       {started ? <Quiz /> : <Welcome />}

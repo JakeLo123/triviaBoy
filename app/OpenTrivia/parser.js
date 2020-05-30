@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { decode } from 'html-encoder-decoder';
 
 export default function parseOpenTriviaQuestions(questions) {

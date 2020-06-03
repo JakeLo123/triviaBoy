@@ -41,7 +41,7 @@ const Quiz = () => {
       <QuestionMetabar
         category={category}
         difficulty={difficulty}
-        score={`${state.userScore}/${state.questions.length}`}
+        score={state.userScore}
       />
       <div className="card-content">
         <h1>Question #{currentQuestionIndex + 1}</h1>

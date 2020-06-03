@@ -14,7 +14,7 @@ export default function QuestionMetabar({ category, difficulty, score }) {
         <strong>Difficulty: </strong>
         {difficulty}
       </p>
-      <p id="score">{score}</p>
+      <p id="score">Score: {score}</p>
     </div>
   );
 }

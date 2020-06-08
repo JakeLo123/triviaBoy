@@ -119,12 +119,34 @@ body {
 }
 
 .loading-text {
-  font-size:32px;
+  font-size: 32px;
+  margin: 10px;
 }
 
 .loading-balls {
+  padding-bottom: 2px;
+  align-items: flex-end;
+  display: flex;
   height: 40px;
   width: auto;
+}
+
+.loading-ball {
+  animation: bounce 0.5s infinite;
+  margin: 5px;
+  height: 8px;
+  width: 8px;
+  background-color: black;
+  border-radius: 100%;
+}
+.loading-ball.ball-1 { animation-delay: 0s; }
+.loading-ball.ball-2 { animation-delay: 0.1s; }
+.loading-ball.ball-3 { animation-delay: 0.2s; }
+
+@keyframes bounce {
+  0% { transform: translateY(0%) }
+  50% { transform: translateY(-70%) }
+  100% { transform: translateY(0%) }
 }
 
 .radio-input {

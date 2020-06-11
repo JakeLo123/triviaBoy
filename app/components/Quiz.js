@@ -7,6 +7,7 @@ const Quiz = () => {
   const { state, dispatch } = useContext(QuizContext);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userInput, setUserInput] = useState('');
+
   const answerRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const submitButtonRef = useRef(null);
 
@@ -15,7 +16,8 @@ const Quiz = () => {
   const { question, correct_answer, allAnswers, category, difficulty } =
     !quizIsOver && state.questions[currentQuestionIndex];
 
-  const handleChange = (e) => setUserInput(e.target.value);
+  const handleUserInput = (e) => setUserInput(e.target.value);
+
   const submitQuestion = (e) => {
     e.preventDefault();
     setTimeout(() => {
@@ -57,7 +59,7 @@ const Quiz = () => {
                     checked={userInput === answer}
                     value={answer}
                     id={answer}
-                    onChange={handleChange}
+                    onChange={handleUserInput}
                   />
                   <span>{answer}</span>
                 </label>

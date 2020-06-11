@@ -18,12 +18,11 @@ const CreateQuiz = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    const formData = {
-      amount: numberOfQuestions.value,
-      category: category.value === 'Any Category' ? null : category.value,
-      difficulty:
-        difficulty.value === 'Any Difficulty' ? null : difficulty.value,
-    };
+    const formData = parseFormDataForSubmit(
+      numberOfQuestions.value,
+      category.value,
+      difficulty.value
+    );
     fetchQuestions(formData).then((questions) => {
       setLoading(false);
       if (questions.length) {
@@ -87,6 +86,14 @@ function useFormData(initialState) {
   const [value, setValue] = useState(initialState);
   const onChange = (e) => setValue(e.target.value);
   return { value, onChange };
+}
+
+function parseFormDataForSubmit(numberOfQuestions, category, difficulty) {
+  return {
+    amount: numberOfQuestions,
+    category: category === 'Any Category' ? null : category,
+    difficulty: difficulty === 'Any Difficulty' ? null : difficulty,
+  };
 }
 
 export default CreateQuiz;

@@ -6,8 +6,10 @@ import Results from './Results';
 import QuestionMetabar from './QuestionMetabar';
 import CreateQuiz from './CreateQuiz';
 import LoadingBalls from './animations/LoadingBalls';
+import Answer from './Answer';
 
 export {
+  Answer,
   Welcome,
   Quiz,
   Results,

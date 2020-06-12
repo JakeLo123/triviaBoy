@@ -1,20 +1,19 @@
 /* eslint-disable camelcase */
 import React, { useContext, useState, useRef } from 'react';
 import QuizContext from '../context';
-import { Results, QuestionMetabar } from './index';
+import { Results, QuestionMetabar, Answer } from './index';
 
 const Quiz = () => {
   const { state, dispatch } = useContext(QuizContext);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userInput, setUserInput] = useState('');
+  const [showFeedback, setShowFeedback] = useState(false);
 
-  const answerRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const submitButtonRef = useRef(null);
 
-  const quizIsOver = currentQuestionIndex === state.questions.length;
+  const quizIsOver = state.currentQuestionIndex === state.questions.length;
 
   const { question, correct_answer, allAnswers, category, difficulty } =
-    !quizIsOver && state.questions[currentQuestionIndex];
+    !quizIsOver && state.questions[state.currentQuestionIndex];
 
   const handleUserInput = (e) => setUserInput(e.target.value);
 
@@ -22,18 +21,12 @@ const Quiz = () => {
     e.preventDefault();
     setTimeout(() => {
       submitButtonRef.current.disabled = false;
-      setCurrentQuestionIndex((prevState) => prevState + 1);
+      setShowFeedback(false);
+      dispatch({ type: 'NEXT_QUESTION' });
     }, 3000);
-
+    if (userInput === correct_answer) dispatch({ type: 'INCREMENT_SCORE' });
     submitButtonRef.current.disabled = true;
-    if (userInput === correct_answer) {
-      dispatch({ type: 'INCREMENT_SCORE' });
-    }
-    answerRefs.forEach((ref) => {
-      if (ref.current.innerText === correct_answer)
-        ref.current.classList.add('correct-answer');
-      else ref.current.classList.add('incorrect-answer');
-    });
+    setShowFeedback(true);
   };
 
   return quizIsOver ? (
@@ -46,24 +39,23 @@ const Quiz = () => {
         score={state.userScore}
       />
       <div className="card-content">
-        <h1>Question #{currentQuestionIndex + 1}</h1>
+        <h1>Question #{state.currentQuestionIndex + 1}</h1>
         <p>{question}</p>
         <div className="answers-list">
-          {allAnswers.map((answer, idx) => {
+          {allAnswers.map((answer) => {
             return (
-              <div key={answer} className="radio-input" ref={answerRefs[idx]}>
-                <label htmlFor={answer}>
-                  <input
-                    name="multiple-choice"
-                    type="radio"
-                    checked={userInput === answer}
-                    value={answer}
-                    id={answer}
-                    onChange={handleUserInput}
-                  />
-                  <span>{answer}</span>
-                </label>
-              </div>
+              <Answer
+                feedback={
+                  answer === correct_answer
+                    ? 'correct-answer'
+                    : 'incorrect-answer'
+                }
+                showFeedback={showFeedback}
+                key={answer}
+                userInput={userInput}
+                handleUserInput={handleUserInput}
+                answer={answer}
+              />
             );
           })}
         </div>

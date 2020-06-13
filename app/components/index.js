@@ -7,8 +7,12 @@ import QuestionMetabar from './QuestionMetabar';
 import CreateQuiz from './CreateQuiz';
 import LoadingBalls from './animations/LoadingBalls';
 import Answer from './Answer';
+import Question from './Question';
+import QuizProgressBar from './QuizProgressBar';
 
 export {
+  QuizProgressBar,
+  Question,
   Answer,
   Welcome,
   Quiz,

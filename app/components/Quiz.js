@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React, { useContext, useState, useRef } from 'react';
 import QuizContext from '../context';
-import { Results, QuestionMetabar, Answer } from './index';
+import { Results, QuestionMetabar, Answer, QuizProgressBar } from './index';
 
 const Quiz = () => {
   const { state, dispatch } = useContext(QuizContext);
@@ -37,6 +37,10 @@ const Quiz = () => {
         category={category}
         difficulty={difficulty}
         score={state.userScore}
+      />
+      <QuizProgressBar
+        questions={state.questions.map((q) => q.question)}
+        currentQuestion={state.currentQuestionIndex}
       />
       <div className="card-content">
         <h1>Question #{state.currentQuestionIndex + 1}</h1>

@@ -24,25 +24,56 @@ body {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   width: 100%;
-  padding: 20px 30px 3px 30px;
+  padding: 20px 20px 5px 20px;
   background-color: black;
   color: white;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .bar > p {
-  padding: 10px;
+  flex: 1;
+  padding: 0px;
   max-width: 30%;
   min-width: fit-content;
   height: auto;
   margin: 0px 10px;
-  display: inline-block;
 }
 
 #score {
-  width: 20px;
+  flex: 0;
   font-size: 20px;
   font-weight: bold;
-  float: right;
+  margin-left: auto;
+  align-self: flex-end;
+}
+
+.quiz-progress-bar {
+  width: 100%;
+  height: 10px;
+  display: flex;
+}
+
+.quiz-progress-bar > div {
+  flex: 1;
+  border: 2px solid white;
+}
+
+.quiz-progress-bar > div > .empty {
+  background-color: white;
+}
+
+.quiz-progress-bar > div > .filled {
+  width: auto;
+  height: 100%;
+  background-color: rgba(0, 0, 255, 0.5);
+  animation: fill 0.3s linear;
+}
+@keyframes fill {
+  from { width: 0 }
+  to { width: 100% }
 }
 
 .card {
@@ -74,9 +105,19 @@ body {
 .correct-answer {
   animation: correct-answer 3s ease;
 }
+@keyframes correct-answer {
+  0% { transform: scale(1); background-color: var(--hue-neutral) }
+  8% { transform: scale(1.2); background-color: var(--hue-correct) }
+  100% { transform: scale(1.2); background-color: var(--hue-correct) }
+}
 
 .incorrect-answer {
   animation: incorrect-answer 3s ease;
+}
+@keyframes incorrect-answer {
+  0% { background-color: var(--hue-neutral) }
+  8% { background-color: var(--hue-incorrect) }
+  100% { background-color: var(--hue-incorrect) }
 }
 
 .btn-max-width {
@@ -167,18 +208,6 @@ body {
   margin-top: 5px;
   margin-bottom: 5px;
   color: red;
-}
-
-@keyframes incorrect-answer {
-  0% { background-color: var(--hue-neutral) }
-  8% { background-color: var(--hue-incorrect) }
-  100% { background-color: var(--hue-incorrect) }
-}
-
-@keyframes correct-answer {
-  0% { transform: scale(1); background-color: var(--hue-neutral) }
-  8% { transform: scale(1.2); background-color: var(--hue-correct) }
-  100% { transform: scale(1.2); background-color: var(--hue-correct) }
 }
 
 @keyframes grow {
